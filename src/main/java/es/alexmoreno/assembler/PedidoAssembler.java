@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PedidoAssembler {
+    //Combierte un objeto de tipo PedidoDTO en un objeto de tipo Pedido  
     public Pedido toEntity(PedidoDTO pedidoDTO){
      Pedido pedido=new Pedido();
      pedido.setIdPedido(pedidoDTO.getIdPedido());
@@ -22,6 +23,7 @@ public class PedidoAssembler {
      pedido.setProductos(pedidoDTO.getProductos());
      return pedido;
     }
+    //Combierte un objeto de tipo Pedido en su versión DTO
     public PedidoDTO toDTO(Pedido pedido){
      PedidoDTO pedidoDTO=new PedidoDTO();
      pedidoDTO.setIdPedido(pedido.getIdPedido());

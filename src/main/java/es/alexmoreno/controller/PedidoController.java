@@ -4,8 +4,10 @@
  */
 package es.alexmoreno.controller;
 
+import es.alexmoreno.assembler.PedidoAssembler;
 import es.alexmoreno.domain.Pedido;
 import es.alexmoreno.domain.Producto;
+import es.alexmoreno.dto.PedidoDTO;
 import es.alexmoreno.service.PedidoService;
 import es.alexmoreno.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +30,27 @@ public class PedidoController {
     @Autowired
     ProductoService productoService;
     
+    @Autowired
+    PedidoAssembler pedidoAssembler;
     
+    
+    //Para crear mediante una petición http un pedido
     @PostMapping
-    public Pedido crearPedido(@RequestBody Pedido pedido){
-        return pedidoService.añadirPedido(pedido);
+    public PedidoDTO crearPedido(@RequestBody PedidoDTO pedidoDto){
+        Pedido pedido=pedidoAssembler.toEntity(pedidoDto);
+        pedido=pedidoService.añadirPedido(pedido);
+        return pedidoAssembler.toDTO(pedido);
     }
     
+    //Para añadir un producto a un pedido mediante una petición http
     @PostMapping("/{id}/producto/{idProducto}")
     public void añadirProductoPedido(@PathVariable long id, @PathVariable long idProducto){
         Pedido pedido=pedidoService.buscarPorId(id);
         Producto producto=productoService.buscarPorId(idProducto);
-        pedidoService.añadirProductoPedido(producto, pedido);
-        
+        pedidoService.añadirProductoPedido(producto, pedido);        
     }
     
+    //Para eliminar un producto a un pedido mediante una petición http
     @DeleteMapping("/{id}/producto/{idProducto}")
     public void eliminarProductoPedido(@PathVariable long id, @PathVariable long idProducto){
         Pedido pedido=pedidoService.buscarPorId(id);

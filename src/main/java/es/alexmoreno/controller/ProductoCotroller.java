@@ -21,27 +21,31 @@ public class ProductoCotroller {
     @Autowired
     ProductoService productoService;
     
+    //Muestra todos los productos mediante una petición http
     @GetMapping
     public List<Producto> listar(){
         return productoService.listarTodos();
     }
     
+    //Busca un producto concreto por medio de la id indicada en el endpoint por medio de una petición http
     @GetMapping("/{id}")
     public Producto buscarId(@PathVariable long id){
         Producto producto=productoService.buscarPorId(id);
         return producto;
     }
     
+    //Crea un producto concreto por medio de una petición http
     @PostMapping
     public Producto crearProducto(@RequestBody Producto producto){
         return productoService.añadirProducto(producto);
     }
-    
+    //Modifica un producto concreto por medio de la id indicada en el endpoint por medio de una petición http
+    //Tambien el producto es enviado por medio el body siendo un json.
     @PutMapping("/{id}")
     public Producto modificarProducto(@PathVariable long id, @RequestBody Producto producto){
         return productoService.modificarPorId(id, producto);
     }
-    
+    //Elimina un producto concreto por medio de la id indicada en el endpoint por medio de una petición http
     @DeleteMapping("/{id}")
     public void eliminarProducto(@PathVariable long id){
         productoService.eliminarProducto(id);

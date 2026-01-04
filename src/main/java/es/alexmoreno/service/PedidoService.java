@@ -18,24 +18,24 @@ public class PedidoService {
     @Autowired
     PedidoRepository pedidoRepository;
     
-    
+    //Para crear un pedido(No lo pide el ejercicio, pero lo añadi para las pruebas)
     @Transactional
     public Pedido añadirPedido(Pedido pedido){
         return pedidoRepository.save(pedido);
     }
-    
+    //Para buscar un pedido en concreto
     @Transactional
     public Pedido buscarPorId(long id){
         return pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
     }
     
-    
+    //Para añadir un producto a un pedido
     @Transactional
     public void añadirProductoPedido(Producto producto,Pedido pedido){
         pedido.getProductos().add(producto);
         pedidoRepository.save(pedido);
     }
-    
+    //Para eliminar un producto de un pedido
     @Transactional
     public void eliminarProductoPedido(Producto producto,Pedido pedido){
        pedido.getProductos().remove(producto);

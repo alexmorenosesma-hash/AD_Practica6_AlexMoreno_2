@@ -13,8 +13,9 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
 
-public class PedidoDTO {
 
+//Es igual que pedido pero la fecha es String en vez de LocalDate
+public class PedidoDTO {
     private long idPedido;
     private String fecha;
     private String cliente;
